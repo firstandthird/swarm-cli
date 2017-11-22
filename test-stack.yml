@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  ops:
+    image: 'firstandthird/ops:0.7.0'
+    environment:
+      - OPS_NAME=swarm-test
+    deploy:
+      mode: global

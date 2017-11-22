@@ -1,0 +1,9 @@
+#!/bin/bash
+
+main() {
+  local stack=$1
+  . $DIR/swarm-copy $stack.yml
+  . $DIR/swarm-copy $stack.env
+  . $DIR/swarm-ssh "source $stack.env && docker stack deploy -c $stack.yml --with-registry-auth $stack"
+}
+main "$@"

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+main() {
+  local src=$1
+  local dst=$2
+  if test -z "$dst"; then
+    dst=$src
+  fi
+  log "Copying $src to $SERVER_HOST:$dst"
+  scp \
+    ${SSH_KEY:+ -i ${SSH_KEY}} \
+    $src \
+    $SSH_USER@$SERVER_HOST:$dst
+}
+main "$@"

@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+
+DIR=$(dirname $0)
+SSH_USER=docker
+
+log() {
+  echo -e "  \e[33m$@\e[39m"
+}
+
+abort() {
+  echo
+  echo -e "  \e[31m$@\e[39m" 1>&2
+  echo
+  exit 1
+}
+
+if test -z "$SERVER_HOST"; then
+  abort "SERVER_HOST must be set"
+fi
+
+CMD=$1
+shift
+case $CMD in
+  --version)
+    version
+    exit
+    ;;
+  *)
+    exec="$DIR/swarm-$CMD"
+    if [ -f "$exec" ]; then
+      . $exec "$@"
+    else
+      abort "command doesn't exist"
+      usage
+    fi
+    ;;
+esac
+
+
