@@ -15,8 +15,30 @@ abort() {
   exit 1
 }
 
+usage() {
+  cat <<-EOF
+
+  Usage: swarm [command]
+
+  Commands:
+
+EOF
+
+for f in $DIR/swarm-*; do
+  cmd=${f:6}
+  printf "    %s %s\n" "$cmd" "$($f _description)"
+done
+echo
+
+exit
+}
+
 if test -z "$SERVER_HOST"; then
   abort "SERVER_HOST must be set"
+fi
+
+if [ "$#" == 0 ]; then
+  usage
 fi
 
 CMD=$1

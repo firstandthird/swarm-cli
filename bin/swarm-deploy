@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$1" == "_description" ]; then
+  echo "[stack]"
+  exit
+fi
+
 main() {
   local stack=$1
   . $DIR/swarm-copy $stack.yml

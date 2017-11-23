@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ "$1" == "_description" ]; then
+  echo "[serviceName] [?image]"
+  exit
+fi
 
 main() {
   local serviceName=$1
