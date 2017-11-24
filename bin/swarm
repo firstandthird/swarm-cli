@@ -58,8 +58,7 @@ case $CMD in
     if [ -f "$exec" ]; then
       . $exec "$@"
     else
-      abort "command doesn't exist"
-      usage
+      . $DIR/swarm-ssh docker $CMD
     fi
     ;;
 esac
