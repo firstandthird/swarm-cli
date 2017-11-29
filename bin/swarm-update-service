@@ -9,11 +9,11 @@ main() {
   local image=$2
   if test -z "$serviceName"; then
     log "No service passed in, listing services"
-    . $DIR/swarm-ssh docker service ls
+    . $DIR/swarm-shell docker service ls
     exit
   fi
   log "Updating $serviceName"
-  . $DIR/swarm-ssh "\
+  . $DIR/swarm-shell "\
     docker service update \
     ${image:+ --image ${image}} \
     --force \

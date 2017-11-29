@@ -12,6 +12,6 @@ main() {
     name=$configFile
   fi
   . $DIR/swarm-copy $configFile
-  . $DIR/swarm-ssh "docker config create $name $configFile"
+  . $DIR/swarm-shell "docker config create $name $configFile"
 }
 main "$@"

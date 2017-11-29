@@ -58,7 +58,7 @@ case $CMD in
     if [ -f "$exec" ]; then
       . $exec "$@"
     else
-      . $DIR/swarm-ssh docker $CMD
+      . $DIR/swarm-shell docker $CMD $@
     fi
     ;;
 esac
