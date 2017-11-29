@@ -1,14 +1,18 @@
 #!/bin/bash
 
 if [ "$1" == "_description" ]; then
-  echo "[stack]"
+  echo "[stack] [?env]"
   exit
 fi
 
 main() {
   local stack=$1
+  local envfile=$2
+  if test -z "$envfile"; then
+    envfile=$stack
+  fi
   . $DIR/swarm-copy $stack.yml
-  . $DIR/swarm-copy $stack.env
-  . $DIR/swarm-shell "source $stack.env && docker stack deploy -c $stack.yml --with-registry-auth $stack"
+  . $DIR/swarm-copy $envfile.env
+  . $DIR/swarm-shell "source $envfile.env && docker stack deploy -c $stack.yml --with-registry-auth --prune $stack"
 }
 main "$@"
