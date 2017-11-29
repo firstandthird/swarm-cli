@@ -6,10 +6,18 @@ fi
 
 main() {
   local cmd=$@
+  local server=$SERVER_HOST
+  if test -z "$server"; then
+    server="local"
+  fi
   if test -z "$cmd"; then
-    log "SSH'ing into $SERVER_HOST"
+    log "SSH'ing into $server"
   else
-    log "Running $cmd on $SERVER_HOST"
+    log "Running $cmd on $server"
+  fi
+  if [[ "$server" == "local" ]]; then
+    $cmd
+    exit 0
   fi
   ssh -t \
     ${SSH_KEY:+ -i ${SSH_KEY}} \

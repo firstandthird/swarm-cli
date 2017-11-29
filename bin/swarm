@@ -39,7 +39,7 @@ version() {
 }
 
 if test -z "$SERVER_HOST"; then
-  abort "SERVER_HOST must be set"
+  log "SERVER_HOST not set, running commands locally"
 fi
 
 if [ "$#" == 0 ]; then
