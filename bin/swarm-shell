@@ -17,11 +17,11 @@ main() {
   fi
   if [[ "$server" == "local" ]]; then
     $cmd
-    exit 0
+  else
+    ssh -t \
+      ${SSH_KEY:+ -i ${SSH_KEY}} \
+      $SSH_USER@$SERVER_HOST \
+      $cmd
   fi
-  ssh -t \
-    ${SSH_KEY:+ -i ${SSH_KEY}} \
-    $SSH_USER@$SERVER_HOST \
-    $cmd
 }
 main "$@"
