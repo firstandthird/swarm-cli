@@ -16,7 +16,7 @@ main() {
     log "Running $cmd on $server"
   fi
   if [[ "$server" == "local" ]]; then
-    $cmd
+    sh -c "$cmd"
   else
     ssh -t \
       ${SSH_KEY:+ -i ${SSH_KEY}} \
