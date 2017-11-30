@@ -17,6 +17,7 @@ main() {
     docker service update \
     ${image:+ --image ${image}} \
     --force \
+    --detach=false \
     --with-registry-auth \
     $serviceName
   "

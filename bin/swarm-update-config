@@ -14,11 +14,11 @@ main() {
     target=$source
   fi
   . $DIR/swarm-config $configFile ${source}.1
-  . $DIR/swarm-shell "docker service update $service --config-rm $source --config-add source=${source}.1,target=${target}"
+  . $DIR/swarm-shell "docker service update $service --detach=false --config-rm $source --config-add source=${source}.1,target=${target}"
   log "removing old config file"
   . $DIR/swarm-shell "docker config rm ${source}"
   . $DIR/swarm-config $configFile ${source}
-  . $DIR/swarm-shell "docker service update $service --config-rm ${source}.1 --config-add source=${source},target=${target}"
+  . $DIR/swarm-shell "docker service update $service --detach=false --config-rm ${source}.1 --config-add source=${source},target=${target}"
   . $DIR/swarm-shell "docker config rm ${source}.1"
 }
 main "$@"
