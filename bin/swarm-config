@@ -8,11 +8,17 @@ fi
 main() {
   local configFile=$1
   local name=$2
+  if test -z "$configFile"; then
+    . $DIR/swarm-shell "docker config ls"
+    exit 0
+  fi
   if test -z "$name"; then
     name=$configFile
   fi
   . $DIR/swarm-copy $configFile
   log "creating $name ($configFile) config"
   . $DIR/swarm-shell "docker config create $name $configFile"
+  . $DIR/swarm-shell "docker config ls"
+
 }
 main "$@"
