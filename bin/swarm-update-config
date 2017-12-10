@@ -9,6 +9,9 @@ main() {
   local service=$1
   local configFile=$2
   local source=$3
+  if test -z "$source"; then
+    source=$configFile
+  fi
   local target=$4
   if test -z "$target"; then
     target=$source
@@ -18,6 +21,8 @@ main() {
   log "removing old config file"
   . $DIR/swarm-shell "docker config rm ${source}"
   . $DIR/swarm-config $configFile ${source}
+  log "waiting 5 seconds to update the service"
+  sleep 5
   . $DIR/swarm-shell "docker service update $service --detach=false --config-rm ${source}.1 --config-add source=${source},target=${target}"
   . $DIR/swarm-shell "docker config rm ${source}.1"
 }
