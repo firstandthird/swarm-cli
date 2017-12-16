@@ -46,6 +46,11 @@ if [ "$#" == 0 ]; then
   usage
 fi
 
+if test -d /root/ssh; then
+  cp -r /root/ssh /root/.ssh
+  chown root:root -R /root/.ssh
+fi
+
 CMD=$1
 shift
 case $CMD in
