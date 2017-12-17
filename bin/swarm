@@ -49,6 +49,7 @@ fi
 if test -d /root/ssh; then
   cp -r /root/ssh /root/.ssh
   chown root:root -R /root/.ssh
+  chmod 600 -R /root/.ssh/*
 fi
 
 CMD=$1
