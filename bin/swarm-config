@@ -15,9 +15,9 @@ main() {
   if test -z "$name"; then
     name=$configFile
   fi
-  . $DIR/swarm-copy $configFile
+  . $DIR/swarm-copy $configFile $name
   log "creating $name ($configFile) config"
-  . $DIR/swarm-shell "docker config create $name $configFile"
+  . $DIR/swarm-shell "docker config create $name $name"
   . $DIR/swarm-shell "docker config ls"
 
 }
