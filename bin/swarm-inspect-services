@@ -1,0 +1,15 @@
+#!/bin/bash
+if [ "$1" == "_description" ]; then
+  echo "[format]"
+  exit
+fi
+
+main() {
+  local format=$1
+  if [[ "$1" == "resources" ]]; then
+    FORMAT="--format '{{.Spec.Name}} {{.Spec.TaskTemplate.Resources.Limits}}'"
+  fi
+  . $DIR/swarm-shell "docker service ls --format '{{.Name}}' | xargs docker service inspect $FORMAT" 
+}
+
+main "$@"
