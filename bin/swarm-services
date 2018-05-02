@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ "$1" == "_description" ]; then
+  echo ""
+  exit
+fi
+
+main() {
+  log "Listing services..."
+  . $DIR/swarm-shell "docker service ls"
+}
+main "$@"
+
+
+
