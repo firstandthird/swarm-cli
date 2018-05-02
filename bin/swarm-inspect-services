@@ -7,9 +7,18 @@ fi
 main() {
   local format=$1
   if [[ "$1" == "resources" ]]; then
-    FORMAT="--format '{{.Spec.Name}} {{.Spec.TaskTemplate.Resources.Limits}}'"
+    format="{{.Spec.Name}}: {{json .Spec.TaskTemplate.Resources.Limits}}"
   fi
-  . $DIR/swarm-shell "docker service ls --format '{{.Name}}' | xargs docker service inspect $FORMAT" 
+  if [[ "$1" == "labels" ]]; then
+    format="{{.Spec.Name}}: {{json .Spec.Labels}}"
+  fi
+  if [[ "$1" == "env" ]]; then
+    format="{{.Spec.Name}}: {{json .Spec.TaskTemplate.ContainerSpec.Env}}"
+  fi
+  if [[ "$1" == "mode" ]]; then
+    format="{{.Spec.Name}}: {{json .Spec.Mode}}"
+  fi
+  . $DIR/swarm-shell "docker service ls --format '{{.Name}}' | xargs docker service inspect ${format:+ --format '${format}'}"
 }
 
 main "$@"
