@@ -1,21 +1,22 @@
 #!/bin/bash
 if [ "$1" == "_description" ]; then
-  echo "[serviceName] [?image]"
+  echo "[serviceName] [options]"
   exit
 fi
 
 main() {
   local serviceName=$1
-  local image=$2
+  shift
+  local args=$@
   if test -z "$serviceName"; then
     log "No service passed in, listing services"
-    . $DIR/swarm-shell docker service ls
+    . $DIR/swarm-services
     exit
   fi
   log "Updating $serviceName"
   . $DIR/swarm-shell "\
     docker service update \
-    ${image:+ --image ${image}} \
+    $args \
     --force \
     --detach=false \
     --with-registry-auth \
