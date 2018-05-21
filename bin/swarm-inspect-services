@@ -7,7 +7,7 @@ fi
 main() {
   local format=$1
   if [[ "$1" == "resources" ]]; then
-    format="{{.Spec.Name}}: {{json .Spec.TaskTemplate.Resources.Limits}}"
+    format="{{.Spec.Name}}: {{json .Spec.TaskTemplate.Resources}}"
   fi
   if [[ "$1" == "labels" ]]; then
     format="{{.Spec.Name}}: {{json .Spec.Labels}}"
