@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ "$1" == "_description" ]; then
+  echo "[format]"
+  exit
+fi
+
+main() {
+  . $DIR/swarm-shell "docker node ls -q | xargs docker node ps --filter desired-state=Running --format '{{.Node}}: {{.Name}} {{.CurrentState}}' | uniq | sort"
+}
+
+main "$@"
