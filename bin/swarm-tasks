@@ -4,7 +4,7 @@ if [ "$1" == "_description" ]; then
 fi
 
 main() {
-  . $DIR/swarm-shell "docker node ls -q | xargs docker node ps --filter desired-state=Running --format '{{.Node}}: {{.Name}} {{.CurrentState}}' | uniq | sort"
+  . $DIR/swarm-shell "docker node ls -q | xargs docker node ps --filter desired-state=Running --format 'table {{.Node}}\t{{.Name}}\t{{.CurrentState}}' | uniq | sort"
 }
 
 main "$@"
