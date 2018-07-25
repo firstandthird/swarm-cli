@@ -18,6 +18,9 @@ main() {
   if [[ "$1" == "mode" ]]; then
     format="{{.Spec.Name}}: {{json .Spec.Mode}}"
   fi
+  if [[ "$1" == "placement" ]]; then
+    format="{{.Spec.Name}}: {{json .Spec.TaskTemplate.Placement}}"
+  fi
   . $DIR/swarm-shell "docker service ls --format '{{.Name}}' | xargs docker service inspect ${format:+ --format '${format}'}"
 }
 
