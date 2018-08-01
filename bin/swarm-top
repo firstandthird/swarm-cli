@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ "$1" == "_description" ]; then
+  echo "[host]"
+  exit
+fi
+
+main() {
+  local server=$1
+  . $DIR/swarm-shell "\
+    ssh -t \
+      ${REMOTE_SSH_KEY:+ -i ${REMOTE_SSH_KEY}} \
+      docker@$server \
+        docker run --rm -ti --name=top --pid host alpine top
+  "
+}
+
+main "$@"
